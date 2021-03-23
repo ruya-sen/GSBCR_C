@@ -15,7 +15,17 @@ namespace GSBCR.DAL
         public MOTIF_VISITE FindById(string code)
         {
             //A faire : rechercher un motif visite par son code
-            return null;
+            MOTIF_VISITE mot = null;
+            using (var context = new gsb_visite_groupe3Entities())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                var req = from m in context.MOTIF_VISITE
+                          where m.MOT_CODE == code
+                          select m;
+                mot = req.SingleOrDefault<MOTIF_VISITE>();
+
+            }
+            return mot;
         }
 
         public List<MOTIF_VISITE> FindAll()

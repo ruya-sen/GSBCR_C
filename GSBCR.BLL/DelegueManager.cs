@@ -36,7 +36,18 @@ namespace GSBCR.BLL
         {
             //A faire : charger les rapports terminés et non lus (état = 2 ) des visiteurs d'une région
 
-            return null;
+            List<RAPPORT_VISITE> lesRapportsVis;
+            List<string> lm = new List<string>();
+            List<int> le = new List<int>();
+            le.Add(2);
+            List<VAFFECTATION> vAffec = new VaffectationDAO().FindByRegion(code);
+            foreach (VAFFECTATION vaff in vAffec)
+            {
+                lm.Add(vaff.VIS_MATRICULE);
+            }
+            lesRapportsVis = new RapportVisiteDAO().FindByEtatEtVisiteur(lm, le);
+
+            return lesRapportsVis;
         }
         /// <summary>
         /// Permet de charger les rapports terminés et consultés (état 3) des visiteurs d'une région 
@@ -46,8 +57,18 @@ namespace GSBCR.BLL
         public static List<RAPPORT_VISITE> ChargerRapportRegionArchives(String r)
         {
             //A faire : charger les rapports terminés (état = 3) des visiteurs d'une région
+            List<RAPPORT_VISITE> lesRapportsVis;
+            List<string> lm = new List<string>();
+            List<int> le = new List<int>();
+            le.Add(3);
+            List<VAFFECTATION> vAffec = new VaffectationDAO().FindByRegion(r);
+            foreach (VAFFECTATION vaff in vAffec)
+            {
+                lm.Add(vaff.VIS_MATRICULE);
+            }
+            lesRapportsVis = new RapportVisiteDAO().FindByEtatEtVisiteur(lm, le);
 
-            return null;
+            return lesRapportsVis;
         }
     }
 }

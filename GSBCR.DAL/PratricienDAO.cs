@@ -14,7 +14,16 @@ namespace GSBCR.DAL
         public PRATICIEN FindById(Int16 pranum)
         {
             //A faire : rechercher un pratricien par son numéro
-            return null;
+            PRATICIEN pra = null;
+            using (var context = new gsb_visite_groupe3Entities())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                var req = from p in context.PRATICIEN.Include("LeType")
+                          where p.PRA_NUM == pranum
+                          select p;
+                pra = req.SingleOrDefault<PRATICIEN>();
+            }
+            return pra;
         }
 
         public List<PRATICIEN> FindAll()
@@ -35,7 +44,16 @@ namespace GSBCR.DAL
         public List<PRATICIEN> FindByType(string code)
         {
             //A faire : charger tous les praticiens d'un type
-            return null;
+            List<PRATICIEN> pas = null;
+            using (var context = new gsb_visite_groupe3Entities())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                var req = from tp in context.PRATICIEN.Include("leType")
+                          where tp.TYP_CODE == code
+                          select tp;
+                pas = req.ToList<PRATICIEN>();
+            }
+            return pas;
         }
     }
 }

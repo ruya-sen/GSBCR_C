@@ -31,5 +31,19 @@ namespace UnitTestGSCR.BLL
                
             }
         }
+        [TestMethod]
+        public void TestChargerRapportVisiteurFinis()
+        {
+            bool ok = false;
+            List<RAPPORT_VISITE> lr = VisiteurManager.ChargerRapportVisiteurFinis("a131");
+            foreach (RAPPORT_VISITE r in lr)
+            {
+                Assert.AreEqual("a131", r.RAP_MATRICULE, "Rapport visite n'appartient pas au matricule a131");
+                ok = (r.RAP_ETAT == "2" || r.RAP_ETAT == "3");
+                Assert.IsTrue(ok, "Pb dans les id d'états" + r.RAP_ETAT);
+                ok = (r.RAP_NUM >= 3 && r.RAP_NUM <= 49);
+                Assert.IsTrue(ok, "Pb dans les n° de rapport " + r.RAP_NUM);
+            }
+        }
     }
 }

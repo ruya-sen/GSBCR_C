@@ -70,7 +70,10 @@ namespace GSBCR.BLL
         public static List<RAPPORT_VISITE> ChargerRapportVisiteurFinis(String m)
         {
             //A faire : charger les rapports terminés (état = 2 ou 3) du visiteur
-            return null;
+            List<string> visiteur = new List<string>() { m };
+            List<int> etats = new List<int>() { 2, 3 };
+            List<RAPPORT_VISITE> rapports = new RapportVisiteDAO().FindByEtatEtVisiteur(visiteur, etats);
+            return rapports;
         }
         
         /// <summary>
@@ -146,7 +149,8 @@ namespace GSBCR.BLL
         /// </summary>
         public static PRATICIEN ChargerLePraticien(Int16 pranum)
         {
-            return null;
+            var praticien = new PratricienDAO().FindById(pranum);
+            return praticien;
         }
     }
 }
